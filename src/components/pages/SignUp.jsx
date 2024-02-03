@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 function SignUp() {
 
@@ -16,7 +16,7 @@ function SignUp() {
     const handleChange = (e) => {
         setData({ ...data, [e.target.id]: e.target.value });
       };
-    const handleSubmit=(e)=>{
+    const handleSubmit= async(e)=>{
       e.preventDefault();
       if(data.name.trim().length < 1){
         toast.error('Please enter Name');
@@ -30,11 +30,15 @@ function SignUp() {
       }else if( data.password.length < 8){
         toast.error('Password must be at least 8 characters');
         return
-      }if( data.password !== data.confirmPassword){
+      } else if( data.password !== data.confirmPassword){
         toast.error('Password and Confirm Password must be same');
         return
       }
-      // here we will post data to back-end.
+      try {
+        
+      } catch (error) {
+        
+      }
     }
 
   return (
@@ -116,7 +120,7 @@ function SignUp() {
                       value={data.confirmPassword}
                     />
                   </div>
-                  <Toaster />
+            
                   <div className="mt-3">
                     <button
                       className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"

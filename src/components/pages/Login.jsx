@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { toast } from 'react-hot-toast';
+
 
 function Login() {
-   
+   const [data , setData] = useState({
+    email:'',
+    password:'',
+   })
+
+
+    const handleChange = (e) => {
+        setData({ ...data, [e.target.id]: e.target.value })
+
+    };
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        if(!data.email.includes('@')){
+            toast.error('Please enter a valid email address');
+            return
+          }else if( data.password.length < 8){
+            toast.error('Password must be at least 8 characters');
+            return
+          }
+          console.log(data)
+    }
 
   return (
     <div className="container-scroller">
@@ -22,7 +45,9 @@ function Login() {
                       className="form-control form-control-lg"
                       id="email"
                       placeholder="Email address"
-                      required="true"
+                      autoComplete="current-password"
+                     onChange={handleChange}
+                     value={data.email}
                     />
                   </div>
                   <div className="form-group">
@@ -31,13 +56,15 @@ function Login() {
                       className="form-control form-control-lg"
                       id="password"
                       placeholder="Password"
-                      required="true"
+                      autoComplete="current-password"
+                      onChange={handleChange}
+                     value={data.password}
                     />
                   </div>
                   <div className="mt-3">
                     <button
                       className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                    >
+                   onClick={handleSubmit} >
                       SIGN IN
                     </button>
                   </div>
@@ -48,9 +75,9 @@ function Login() {
                         Keep me signed in
                       </label>
                     </div>
-                    <a href="/" className="auth-link text-black">
+                    <Link href="/" className="auth-link text-black">
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
                   <div className="mb-2">
                     <button
