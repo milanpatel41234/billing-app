@@ -1,14 +1,15 @@
-import { Toaster } from 'react-hot-toast';
-import AllRoutes from './components/pages/Routes';
-
+import { Toaster } from "react-hot-toast";
+import AllRoutes from "./components/pages/Routes";
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 function App() {
+  const queryClient = new QueryClient()
+  
   return (
-    <>
-    <Toaster/>
-     <AllRoutes/>
-
-    </>
+    <QueryClientProvider client={queryClient}>
+      <Toaster />
+      <AllRoutes />
+    </QueryClientProvider>
   );
 }
 

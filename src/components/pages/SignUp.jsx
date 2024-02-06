@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AuthAction } from "../redux-store/Index";
+import axios from "axios";
 import { toast } from 'react-hot-toast';
+import { signupApi } from '../assets/api';
 
 function SignUp() {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+  
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -24,7 +30,7 @@ function SignUp() {
       }else if(!data.email.includes('@')){
         toast.error('Please enter a valid email address');
         return
-      }else if(data.mobile.length !== 10){
+      }else if(data.mobile.length < 10){
         toast.error('Please enter a valid Mobile number');
         return
       }else if( data.password.length < 8){
@@ -34,16 +40,35 @@ function SignUp() {
         toast.error('Password and Confirm Password must be same');
         return
       }
+      const obj = {
+        name: data.name,
+        email: data.email,
+        mobile: data.mobile,
+        password: data.password,
+      }
       try {
-        
+        const response = await axios.post(
+          signupApi,
+          obj,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        const result = response.data;
+  
+        if (result.success) {
+          dispatch(AuthAction.setUserVerified({ token: result.token }));
+          toast.success(result.message);
+          navigate("/");
+        } else {
+          toast.error(result.message);
+        }
       } catch (error) {
-        
+        alert(error);
       }
     }
 
   return (
-    <div className="container-scroller">
-      <div className="container-fluid page-body-wrapper full-page-wrapper">
         <div className="content-wrapper d-flex align-items-center auth px-0">
           <div className="row w-100 mx-0">
             <div className="col-lg-4 mx-auto">
@@ -56,7 +81,7 @@ function SignUp() {
                       <h3>Sign Up</h3>
                       <Link
                         className="p-2 mb-2 bg-warning text-dark rounded"
-                        to="/"
+                        to="/login"
                         style={{ textDecoration: 'none' }}
                       >
                         SIGN IN
@@ -134,10 +159,6 @@ function SignUp() {
             </div>
           </div>
         </div>
-        {/* content-wrapper ends */}
-      </div>
-      {/* page-body-wrapper ends */}
-    </div>
   );
 }
 
