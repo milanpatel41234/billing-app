@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { AuthAction } from "../redux-store/Index";
 
-function Header({toggleLeftSidebar , toggleRightSidebar}) {
+function Header({ toggleLeftSidebar, toggleRightSidebar }) {
+  const [openUserModal, setOpenUserModal] = useState(false);
+  const [openMessageModal, setOpenMessageModal] = useState(false);
+  const [openBellModal, setOpenBellModal] = useState(false);
+  const dispatch = useDispatch();
+
   return (
     <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -123,15 +130,16 @@ function Header({toggleLeftSidebar , toggleRightSidebar}) {
           </li>
           <li className="nav-item dropdown">
             <Link
-              className="nav-link count-indicator"
+              className={`nav-link count-indicator ${openMessageModal ? "show": ''}`}
               id="notificationDropdown"
-              to="#"
               data-bs-toggle="dropdown"
+              onClick={()=> setOpenMessageModal((prev)=> !prev)}
+              aria-expanded={openMessageModal}
             >
               <i className="icon-mail icon-lg" />
             </Link>
             <div
-              className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${openMessageModal ? "show": ''}`}
               aria-labelledby="notificationDropdown"
             >
               <Link className="dropdown-item py-3 border-bottom">
@@ -179,17 +187,17 @@ function Header({toggleLeftSidebar , toggleRightSidebar}) {
           </li>
           <li className="nav-item dropdown">
             <Link
-              className="nav-link count-indicator"
+              className={`nav-link count-indicator ${openMessageModal ? "show": ''}`}
               id="countDropdown"
-              to="#"
+              onClick={()=> setOpenBellModal((prev)=> !prev)}
               data-bs-toggle="dropdown"
-              aria-expanded="false"
+              aria-expanded={openBellModal}
             >
               <i className="icon-bell" />
               <span className="count" />
             </Link>
             <div
-              className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${openBellModal ? "show": ''}`}
               aria-labelledby="countDropdown"
             >
               <Link className="dropdown-item py-3">
@@ -259,11 +267,14 @@ function Header({toggleLeftSidebar , toggleRightSidebar}) {
           </li>
           <li className="nav-item dropdown d-none d-lg-block user-dropdown">
             <Link
-              className="nav-link"
+              className={`nav-link ${openUserModal && "show"}`}
               id="UserDropdown"
+              onClick={() =>
+                setOpenUserModal((prevopenUserModal) => !prevopenUserModal)
+              }
               to="#"
               data-bs-toggle="dropdown"
-              aria-expanded="false"
+              aria-expanded={openUserModal}
             >
               <img
                 className="img-xs rounded-circle"
@@ -272,7 +283,9 @@ function Header({toggleLeftSidebar , toggleRightSidebar}) {
               />{" "}
             </Link>
             <div
-              className="dropdown-menu dropdown-menu-right navbar-dropdown"
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown ${
+                openUserModal && "show"
+              }`}
               aria-labelledby="UserDropdown"
             >
               <div className="dropdown-header text-center">
@@ -282,30 +295,54 @@ function Header({toggleLeftSidebar , toggleRightSidebar}) {
                   alt="Profile image"
                 />
                 <p className="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                <p className="fw-light text-muted mb-0">
+                {/* <p className="fw-light text-muted mb-0">
                   allenmoreno@gmail.com
-                </p>
+                </p> */}
               </div>
               <Link className="dropdown-item">
                 <i className="dropdown-item-icon mdi mdi-account-outline text-primary me-2" />{" "}
                 My Profile{" "}
                 <span className="badge badge-pill badge-danger">1</span>
               </Link>
-              <Link className="dropdown-item">
-                <i className="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2" />{" "}
-                Messages
+              <Link className="dropdown-item" to="/bank">
+                <i className="dropdown-item-icon mdi mdi-bank text-primary me-2" />{" "}
+                Bank Details
               </Link>
-              <Link className="dropdown-item">
-                <i className="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2" />{" "}
-                Activity
+              <Link className="dropdown-item" to="/year">
+                <i className="dropdown-item-icon mdi mdi-chart-line text-primary me-2" />{" "}
+                Financial Year
               </Link>
-              <Link className="dropdown-item">
-                <i className="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2" />{" "}
-                FAQ
+              <Link className="dropdown-item" to="/import_data">
+                <i className="dropdown-item-icon mdi mdi-clipboard-arrow-down text-primary me-2" />{" "}
+                Import data
               </Link>
-              <Link className="dropdown-item">
+              <Link className="dropdown-item" to="/print">
+                <i className="dropdown-item-icon mdi mdi-receipt text-primary me-2" />{" "}
+                Print Layout Configurations
+              </Link>
+              <Link className="dropdown-item" to="mail">
+                <i className="dropdown-item-icon mdi mdi-email text-primary me-2" />{" "}
+                Mail Permissions
+              </Link>
+              <Link className="dropdown-item" to="/settings">
+                <i className="dropdown-item-icon mdi mdi-brightness-5 text-primary me-2" />{" "}
+                Settings
+              </Link>
+              <Link className="dropdown-item" to="/barcode">
+                <i className="dropdown-item-icon mdi mdi-barcode text-primary me-2" />{" "}
+                Multiple Barcode
+              </Link>
+              <Link className="dropdown-item" to="/plan">
+                <i className="dropdown-item-icon mdi mdi-trophy-award text-primary me-2" />{" "}
+                View Plans
+              </Link>
+              <Link
+                onClick={() => dispatch(AuthAction.setlogout())}
+                to="/login"
+                className="dropdown-item"
+              >
                 <i className="dropdown-item-icon mdi mdi-power text-primary me-2" />
-                Sign Out
+                Logout
               </Link>
             </div>
           </li>

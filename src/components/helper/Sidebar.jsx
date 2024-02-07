@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { AuthAction } from "../redux-store/Index";
+// import style from "./Sidebar.module.css"
 
 function Sidebar({ rightSidebarActive }) {
   const dispatch = useDispatch();
@@ -278,8 +279,9 @@ function Sidebar({ rightSidebarActive }) {
             rightSidebarActive && "active"
           }`}
           id="sidebar"
+          style={{"height":"100%"}}
         >
-          <ul className="nav" style={{"paddingTop": rightSidebarActive ? undefined : "100px"}}>
+          <ul className="nav">
             <li className="nav-item">
               <Link
                 className="nav-link"
@@ -336,7 +338,7 @@ function Sidebar({ rightSidebarActive }) {
                   setOpenItemsModal((prevopenItemsModal) => !prevopenItemsModal)
                 }
               >
-                <i className="menu-icon mdi mdi-apple-keyboard-option" />
+                <i className="menu-icon mdi mdi-cart-plus" />
                 <span className="menu-title">Items</span>
                 <i className="menu-arrow" />
               </div>
@@ -373,7 +375,7 @@ function Sidebar({ rightSidebarActive }) {
                   setOpenTaxModal((prevopenTaxModal) => !prevopenTaxModal)
                 }
               >
-                <i className="menu-icon mdi mdi-airballoon" />
+                <i className="menu-icon mdi mdi-contrast" />
                 <span className="menu-title">Taxes</span>
                 <i className="menu-arrow" />
               </div>
@@ -483,7 +485,7 @@ function Sidebar({ rightSidebarActive }) {
                 aria-expanded="false"
                 aria-controls="ui-basic"
               >
-                <i className="menu-icon mdi mdi-arrange-bring-forward" />
+                <i className="menu-icon mdi mdi-chart-pie" />
                 <span className="menu-title">Reports</span>
               </Link>
             </li>
@@ -520,7 +522,7 @@ function Sidebar({ rightSidebarActive }) {
                 onClick={() => dispatch(AuthAction.setlogout())}
                 to="/login"
               >
-                <i className="menu-icon mdi mdi-account-remove" />
+                <i className="menu-icon mdi mdi-power" />
                 <span className="menu-title">Logout</span>
               </Link>
             </li>

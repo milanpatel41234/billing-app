@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate  } from "react-router-
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Dashboard from "./Dashboard";
-import Header from "../assets/Header";
-import Sidebar from "../assets/Sidebar";
+import Header from "../helper/Header";
+import Sidebar from "../helper/Sidebar";
 import { useSelector } from "react-redux";
 
 function AllRoutes() {
@@ -23,7 +23,7 @@ function AllRoutes() {
    <Router>
       <div className={`container-scroller ${!leftSidebarActive && 'sidebar-icon-only'}`}>
        {Auth.loginState && <Header toggleRightSidebar={toggleRightSidebar} toggleLeftSidebar={toggleLeftSidebar} />}
-        <div className="container-fluid page-body-wrapper  full-page-wrapper">
+        <div className="container-fluid page-body-wrapper ">
         {Auth.loginState && <Sidebar rightSidebarActive={rightSidebarActive} />}
           <Routes>
             <Route path="/login" element={!Auth.loginState ? <Login/> : <Navigate to="/" />} />
