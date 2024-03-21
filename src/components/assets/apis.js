@@ -1,0 +1,20 @@
+const domain = "http://localhost:5000";
+//  const domain = "https://backendbillingapp.sceero.live";
+
+ export const loginApi = `${domain}/user/login`;
+ export const signupApi = `${domain}/user/signup`;
+ export const userProfile = `${domain}/user/profile`;
+ export const companyApi = `${domain}/company`;
+ export const brandApi = `${domain}/brand`;
+ export const categoryApi = `${domain}/category`;
+ export const taxApi = `${domain}/tax`;
+ export const userApi = `${domain}/users`;
+ export const productApi = `${domain}/product`;
+ export const contactApi = `${domain}/contact`;
+ export const leadApi = `${domain}/lead`;
+ export const invoiceApi = `${domain}/sales_inv`;
+ export const purchaseInvoiceApi = `${domain}/purchase_inv`;
+ export const quotationApi = `${domain}/quotation`;
+ export const noteApi = `${domain}/note`;
+ export const bankApi = `${domain}/bank`;
+ export const paymentApi = `${domain}/payment`;

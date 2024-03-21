@@ -279,7 +279,7 @@ function Sidebar({ rightSidebarActive }) {
             rightSidebarActive && "active"
           }`}
           id="sidebar"
-          style={{"height":"100%"}}
+          style={{ height: "100%" }}
         >
           <ul className="nav">
             <li className="nav-item">
@@ -353,7 +353,7 @@ function Sidebar({ rightSidebarActive }) {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/Categories">
+                    <Link className="nav-link" to="/categories">
                       Categories
                     </Link>
                   </li>
@@ -365,7 +365,7 @@ function Sidebar({ rightSidebarActive }) {
                 </ul>
               </div>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <div
                 className={`nav-link ${openTaxModal && "collapsed"}`}
                 data-bs-toggle="collapse"
@@ -377,40 +377,19 @@ function Sidebar({ rightSidebarActive }) {
               >
                 <i className="menu-icon mdi mdi-contrast" />
                 <span className="menu-title">Taxes</span>
-                <i className="menu-arrow" />
               </div>
-              <div
-                className={`collapse ${openTaxModal && "show"}`}
-                id="form-elements"
+            </li> */}
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                data-bs-toggle="collapse"
+                to="/taxes"
+                aria-expanded="false"
+                aria-controls="ui-basic"
               >
-                <ul className="nav flex-column sub-menu">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="manage_tax">
-                      Manage Tax
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/gst_hsn">
-                      GST HSN Code
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/manage_hsn">
-                      Manage HSN
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/gst_sac">
-                      GST SAC Code
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/manage_sac">
-                      Manage SAC
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                <i className="menu-icon mdi mdi-contrast" />
+                <span className="menu-title">Taxes</span>
+              </Link>
             </li>
             <li className="nav-item">
               <div
@@ -489,7 +468,7 @@ function Sidebar({ rightSidebarActive }) {
                 <span className="menu-title">Reports</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className="nav-link"
                 data-bs-toggle="collapse"
@@ -500,7 +479,7 @@ function Sidebar({ rightSidebarActive }) {
                 <i className="menu-icon mdi mdi-account-check" />
                 <span className="menu-title">Users</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link
                 className="nav-link"
@@ -511,6 +490,18 @@ function Sidebar({ rightSidebarActive }) {
               >
                 <i className="menu-icon mdi mdi-alert-circle-outline" />
                 <span className="menu-title">Support</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                data-bs-toggle="collapse"
+                to="/settings"
+                aria-expanded="false"
+                aria-controls="ui-basic"
+              >
+                <i className="menu-icon mdi mdi-brightness-5" />
+                <span className="menu-title">Settings</span>
               </Link>
             </li>
             <li className="nav-item">

@@ -1,16 +1,60 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { AuthAction } from "../redux-store/Index";
+import { FinancialYearActions } from "../redux-store/Index";
+import CreatableSelect from "react-select/creatable";
+
+const FinancialYearArray = [
+  { label: 'FY 2015-2016', value: '15' },
+  { label: 'FY 2016-2017', value: '16' },
+  { label: 'FY 2017-2018', value: '17' },
+  { label: 'FY 2018-2019', value: '18' },
+  { label: 'FY 2019-2020', value: '19' },
+  { label: 'FY 2020-2021', value: '20' },
+  { label: 'FY 2021-2022', value: '21' },
+  { label: 'FY 2022-2023', value: '22' },
+  { label: 'FY 2023-2024', value: '23' },
+  { label: 'FY 2024-2025', value: '24' },
+  { label: 'FY 2025-2026', value: '25' },
+  { label: 'FY 2026-2027', value: '26' },
+  { label: 'FY 2027-2028', value: '27' },
+  { label: 'FY 2028-2029', value: '28' },
+  { label: 'FY 2029-2030', value: '29' },
+  { label: 'FY 2030-2031', value: '30' },
+  { label: 'FY 2031-2032', value: '31' },
+  { label: 'FY 2032-2033', value: '32' },
+  { label: 'FY 2033-2034', value: '33' },
+  { label: 'FY 2034-2035', value: '34' },
+  { label: 'FY 2035-2036', value: '35' }
+]
 
 function Header({ toggleLeftSidebar, toggleRightSidebar }) {
   const [openUserModal, setOpenUserModal] = useState(false);
   const [openMessageModal, setOpenMessageModal] = useState(false);
   const [openBellModal, setOpenBellModal] = useState(false);
   const dispatch = useDispatch();
+  const FYState = useSelector(state => state.FinancialYear);
+
+  function greet() {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+
+    let greeting;
+
+    if (currentHour >= 5 && currentHour < 12) {
+        greeting = 'Good morning';
+    } else if (currentHour >= 12 && currentHour < 18) {
+        greeting = 'Good afternoon';
+    } else {
+        greeting = 'Good evening';
+    }
+
+    return greeting;
+}
 
   return (
-    <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+    <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row" style={{zIndex:'50'}}>
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
         <div className="me-3">
           <button
@@ -23,10 +67,10 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
           </button>
         </div>
         <div>
-          <Link className="navbar-brand brand-logo" to="index.html">
+          <Link className="navbar-brand brand-logo" to="/">
             <img src="images/logo.svg" alt="logo" />
           </Link>
-          <Link className="navbar-brand brand-logo-mini" to="index.html">
+          <Link className="navbar-brand brand-logo-mini" to="/">
             <img src="images/logo-mini.svg" alt="logo" />
           </Link>
         </div>
@@ -35,26 +79,22 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
         <ul className="navbar-nav">
           <li className="nav-item font-weight-semibold d-none d-lg-block ms-0">
             <h1 className="welcome-text">
-              Good Morning, <span className="text-black fw-bold">John Doe</span>
+            {greet()} <span className="text-black fw-bold">Admin</span>
             </h1>
-            <h3 className="welcome-sub-text">
-              Your performance summary this week{" "}
-            </h3>
+           
           </li>
         </ul>
         <ul className="navbar-nav ms-auto">
           <li className="nav-item dropdown d-none d-lg-block">
-            <Link
-              className="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split"
-              id="messageDropdown"
-              to="/"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {" "}
-              Select Category{" "}
-            </Link>
-            <div
+           <CreatableSelect
+            name="category"
+            className="w-100"
+            value={FYState.FYear}
+            placeholder={ `Select FY year`}
+            onChange={(val) => dispatch(FinancialYearActions.editFinancialYear(val))}
+            options={FinancialYearArray}
+            />
+            {/* <div
               className="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0"
               aria-labelledby="messageDropdown"
             >
@@ -104,7 +144,7 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                   </p>
                 </div>
               </Link>
-            </div>
+            </div> */}
           </li>
           <li className="nav-item d-none d-lg-block">
             <div
@@ -130,19 +170,41 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
           </li>
           <li className="nav-item dropdown">
             <Link
-              className={`nav-link count-indicator ${openMessageModal ? "show": ''}`}
+              className={`nav-link count-indicator ${
+                openMessageModal ? "show" : ""
+              }`}
               id="notificationDropdown"
               data-bs-toggle="dropdown"
-              onClick={()=> setOpenMessageModal((prev)=> !prev)}
+              onClick={() => setOpenMessageModal((prev) => !prev)}
               aria-expanded={openMessageModal}
             >
               <i className="icon-mail icon-lg" />
             </Link>
             <div
-              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${openMessageModal ? "show": ''}`}
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${
+                openMessageModal ? "show" : ""
+              }`}
               aria-labelledby="notificationDropdown"
             >
-              <Link className="dropdown-item py-3 border-bottom">
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "5px",
+                  background: "red",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  color: "white",
+                  borderRadius: "5px",
+                }}
+                onClick={() => setOpenMessageModal((prev) => !prev)}
+              >
+                X
+              </button>
+              <Link className="dropdown-item py-3 border-bottom"
+              style={{marginTop:"25px"}}>
                 <p className="mb-0 font-weight-medium float-left">
                   You have 4 new notifications{" "}
                 </p>
@@ -187,9 +249,11 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
           </li>
           <li className="nav-item dropdown">
             <Link
-              className={`nav-link count-indicator ${openMessageModal ? "show": ''}`}
+              className={`nav-link count-indicator ${
+                openMessageModal ? "show" : ""
+              }`}
               id="countDropdown"
-              onClick={()=> setOpenBellModal((prev)=> !prev)}
+              onClick={() => setOpenBellModal((prev) => !prev)}
               data-bs-toggle="dropdown"
               aria-expanded={openBellModal}
             >
@@ -197,10 +261,29 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
               <span className="count" />
             </Link>
             <div
-              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${openBellModal ? "show": ''}`}
+              className={`dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0 ${
+                openBellModal ? "show" : ""
+              }`}
               aria-labelledby="countDropdown"
             >
-              <Link className="dropdown-item py-3">
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  top: "5px",
+                  right: "5px",
+                  background: "red",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  color: "white",
+                  borderRadius: "5px",
+                }}
+                onClick={() => setOpenBellModal((prev) => !prev)}
+              >
+                X
+              </button>
+              <Link className="dropdown-item py-3" style={{marginTop:"25px"}}>
                 <p className="mb-0 font-weight-medium float-left">
                   You have 7 unread mails{" "}
                 </p>
@@ -272,7 +355,6 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
               onClick={() =>
                 setOpenUserModal((prevopenUserModal) => !prevopenUserModal)
               }
-              to="#"
               data-bs-toggle="dropdown"
               aria-expanded={openUserModal}
             >
@@ -288,6 +370,25 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
               }`}
               aria-labelledby="UserDropdown"
             >
+              <button
+                type="button"
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  background: "red",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  color: "white",
+                  borderRadius: "5px",
+                }}
+                onClick={() =>
+                  setOpenUserModal((prevopenUserModal) => !prevopenUserModal)
+                }
+              >
+                X
+              </button>
               <div className="dropdown-header text-center">
                 <img
                   className="img-md rounded-circle"
@@ -295,14 +396,11 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                   alt="Profile image"
                 />
                 <p className="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                {/* <p className="fw-light text-muted mb-0">
-                  allenmoreno@gmail.com
-                </p> */}
               </div>
-              <Link className="dropdown-item">
+              <Link className="dropdown-item" to="/profile">
                 <i className="dropdown-item-icon mdi mdi-account-outline text-primary me-2" />{" "}
                 My Profile{" "}
-                <span className="badge badge-pill badge-danger">1</span>
+                {/* <span className="badge badge-pill badge-danger">1</span> */}
               </Link>
               <Link className="dropdown-item" to="/bank">
                 <i className="dropdown-item-icon mdi mdi-bank text-primary me-2" />{" "}
@@ -317,16 +415,16 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                 Import data
               </Link>
               <Link className="dropdown-item" to="/print">
-                <i className="dropdown-item-icon mdi mdi-receipt text-primary me-2" />{" "}
+                <i className="dropdown-item-icon mdi mdi-shredder text-primary me-2" />{" "}
                 Print Layout Configurations
               </Link>
               <Link className="dropdown-item" to="mail">
                 <i className="dropdown-item-icon mdi mdi-email text-primary me-2" />{" "}
                 Mail Permissions
               </Link>
-              <Link className="dropdown-item" to="/settings">
-                <i className="dropdown-item-icon mdi mdi-brightness-5 text-primary me-2" />{" "}
-                Settings
+              <Link className="dropdown-item" to="/manage_company">
+                <i className="dropdown-item-icon mdi mdi-factory text-primary me-2" />{" "}
+                manage company
               </Link>
               <Link className="dropdown-item" to="/barcode">
                 <i className="dropdown-item-icon mdi mdi-barcode text-primary me-2" />{" "}
