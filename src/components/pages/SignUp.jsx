@@ -23,6 +23,7 @@ function SignUp() {
         setData({ ...data, [e.target.id]: e.target.value });
       };
     const handleSubmit= async(e)=>{
+      const loading = toast.loading('verifying Details, kindly wait...')
       e.preventDefault();
       if(data.name.trim().length < 1){
         toast.error('Please enter Name');
@@ -57,10 +58,7 @@ function SignUp() {
         const result = response.data;
   
         if (result.success) {
-          
-          console.log('falled in if block of singup')
           dispatch(AuthAction.setUserVerified({ token: result.token }));
-         // navigate("/manage_company");
           toast.success(result.message);
         } else {
           toast.error(result.message);
@@ -68,6 +66,7 @@ function SignUp() {
       } catch (error) {
         alert(error);
       }
+      toast.dismiss(loading)
     }
 
   return (

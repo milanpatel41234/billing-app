@@ -8,7 +8,6 @@ import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
 import Footer from "../helper/Footer";
 import { categoryApi } from "../assets/apis"; // Assuming you have an API file for categories
-import BackdropOverlay from "../uiModals/Backdrop";
 import { Box, Modal } from "@mui/material";
 
 export const fetchCategories = async () => {
@@ -65,7 +64,8 @@ const Category = () => {
         description: "",
       });
     } catch (error) {
-      toast.error(error);
+      console.log(error)
+      toast.error(error.response.data.message);
     }
   };
 
@@ -202,7 +202,7 @@ const Category = () => {
         </Box>
       </Modal>
 
-      <BackdropOverlay visible={visible} />
+     
 
       <div className="content-wrapper  ">
         <div id="first" className="card col-lg-12 p-3">

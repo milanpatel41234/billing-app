@@ -18,7 +18,6 @@ import ManageCompany from "./ManageCompany";
 import Category from "./Category";
 import ProductServices from "./Product-Services";
 import Tax from "./ManageTax";
-import Users from "./Users";
 import Leads from "./Leads";
 import Contacts from "./Contacts";
 import Invoices from "./invoice-section/Invoices";
@@ -97,7 +96,6 @@ function AllRoutes() {
             <Route path="/brand" element={<Brand />} />
             <Route path="/product" element={<ProductServices />} />
             <Route path="/taxes" element={<Tax />} />
-            <Route path="/users" element={<Users />} />
             <Route path="/leads" element={<Leads />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/bank" element={<Bank />} />

@@ -8,7 +8,6 @@ function Sidebar({ rightSidebarActive }) {
   const dispatch = useDispatch();
   const [openContactModal, setOpenContactModal] = useState(false);
   const [openItemsModal, setOpenItemsModal] = useState(false);
-  const [openTaxModal, setOpenTaxModal] = useState(false);
   const [openInvoiceModal, setOpenInvoiceModal] = useState(false);
 
   return (
@@ -432,21 +431,7 @@ function Sidebar({ rightSidebarActive }) {
                       Debit/Credit Note
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/bill_of_supply">
-                      Bill Of Supply
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/delivery_challan">
-                      Delivery Challan
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/bulk_payment">
-                      Bulk Payment
-                    </Link>
-                  </li>
+
                   <li className="nav-item">
                     <Link className="nav-link" to="/payment_records">
                       Payment Records
@@ -492,7 +477,7 @@ function Sidebar({ rightSidebarActive }) {
                 <span className="menu-title">Support</span>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link
                 className="nav-link"
                 data-bs-toggle="collapse"
@@ -503,7 +488,7 @@ function Sidebar({ rightSidebarActive }) {
                 <i className="menu-icon mdi mdi-brightness-5" />
                 <span className="menu-title">Settings</span>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link
                 className="nav-link"

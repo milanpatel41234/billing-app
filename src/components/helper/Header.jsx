@@ -395,7 +395,7 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                   src="images/faces/face8.jpg"
                   alt="Profile image"
                 />
-                <p className="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
+                <p className="mb-1 mt-3 font-weight-semibold">Admin</p>
               </div>
               <Link className="dropdown-item" to="/profile">
                 <i className="dropdown-item-icon mdi mdi-account-outline text-primary me-2" />{" "}
@@ -406,18 +406,12 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                 <i className="dropdown-item-icon mdi mdi-bank text-primary me-2" />{" "}
                 Bank Details
               </Link>
-              <Link className="dropdown-item" to="/year">
+              {/* <Link className="dropdown-item" to="/year">
                 <i className="dropdown-item-icon mdi mdi-chart-line text-primary me-2" />{" "}
                 Financial Year
-              </Link>
-              <Link className="dropdown-item" to="/import_data">
-                <i className="dropdown-item-icon mdi mdi-clipboard-arrow-down text-primary me-2" />{" "}
-                Import data
-              </Link>
-              <Link className="dropdown-item" to="/print">
-                <i className="dropdown-item-icon mdi mdi-shredder text-primary me-2" />{" "}
-                Print Layout Configurations
-              </Link>
+              </Link> */}
+              
+             
               <Link className="dropdown-item" to="mail">
                 <i className="dropdown-item-icon mdi mdi-email text-primary me-2" />{" "}
                 Mail Permissions
@@ -426,14 +420,11 @@ function Header({ toggleLeftSidebar, toggleRightSidebar }) {
                 <i className="dropdown-item-icon mdi mdi-factory text-primary me-2" />{" "}
                 manage company
               </Link>
-              <Link className="dropdown-item" to="/barcode">
-                <i className="dropdown-item-icon mdi mdi-barcode text-primary me-2" />{" "}
-                Multiple Barcode
-              </Link>
-              <Link className="dropdown-item" to="/plan">
+             
+              {/* <Link className="dropdown-item" to="/plan">
                 <i className="dropdown-item-icon mdi mdi-trophy-award text-primary me-2" />{" "}
                 View Plans
-              </Link>
+              </Link> */}
               <Link
                 onClick={() => dispatch(AuthAction.setlogout())}
                 to="/login"

@@ -143,7 +143,7 @@ const Contacts = () => {
 
   const handleApiError = (error) => {
     const errorMessage = error.response?.data?.message || "An error occurred";
-    // toast.error(errorMessage);
+     toast.error(errorMessage);
   };
 
   const fetchContacts = async () => {
@@ -159,7 +159,7 @@ const Contacts = () => {
     } catch (error) {
       console.error(error);
       // Handle the error, perhaps set an error state or throw it further
-      handleApiError(error);
+      // handleApiError(error);
     }
   };
 

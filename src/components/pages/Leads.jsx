@@ -142,7 +142,7 @@ const Leads = () => {
 
   const handleApiError = (error) => {
     const errorMessage = error.response?.data?.message || "An error occurred";
-    // toast.error(errorMessage);
+     toast.error(errorMessage);
   };
 
   const fetchLeads = async () => {
@@ -157,7 +157,7 @@ const Leads = () => {
       return response.data;
     } catch (error) {
       console.error(error);
-      handleApiError(error);
+      // handleApiError(error);
     }
   };
 

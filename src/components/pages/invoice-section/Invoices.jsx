@@ -45,13 +45,13 @@ const Invoices = () => {
       toast.success("Invoice deleted successfully");
       refetch();
     } catch (error) {
-      handleApiError(error);
+      // handleApiError(error);
     }
   };
 
   const handleApiError = (error) => {
     const errorMessage = error.response?.data?.message || "An error occurred";
-    // toast.error(errorMessage);
+    toast.error(errorMessage);
   };
 
   const fetchInvoices = async () => {

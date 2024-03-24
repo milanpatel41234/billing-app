@@ -9,7 +9,6 @@ import Footer from "../helper/Footer";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { brandApi } from "../assets/apis";
-import BackdropOverlay from "../uiModals/Backdrop";
 import { Box, Modal } from "@mui/material";
 
 export const fetchBrands = async () => {
@@ -191,7 +190,7 @@ const Brand = () => {
         </Box>
       </Modal>
 
-      <BackdropOverlay visible={visible} />
+     
 
       <div className="content-wrapper  ">
         <div id="first" className="card col-lg-12 p-3">

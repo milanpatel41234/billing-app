@@ -19,6 +19,7 @@ function Login() {
     setData({ ...data, [e.target.id]: e.target.value });
   };
   const handleSubmit = async (e) => {
+    const loading = toast.loading('verifying user kindly wait...')
     e.preventDefault();
     if (!data.email.includes("@")) {
       toast.error("Please enter a valid email address");
@@ -45,8 +46,9 @@ function Login() {
         toast.error(result.message);
       }
     } catch (error) {
-      alert(error);
+      toast.error(error);
     }
+    toast.dismiss(loading)
   };
 
   return (
