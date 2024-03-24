@@ -1,5 +1,6 @@
-const domain = "http://localhost:5000";
+// const domain = "http://localhost:5000";
 //  const domain = "https://backendbillingapp.sceero.live";
+ const domain = "https://thunderous-brioche-962834.netlify.app";
 
  export const loginApi = `${domain}/user/login`;
  export const signupApi = `${domain}/user/signup`;

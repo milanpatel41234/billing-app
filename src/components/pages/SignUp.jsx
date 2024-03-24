@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { AuthAction } from "../redux-store/Index";
 import axios from "axios";
 import { toast } from 'react-hot-toast';
-import { signupApi } from '../assets/api';
+import { signupApi } from '../assets/apis';
 
 function SignUp() {
     const dispatch = useDispatch();
@@ -57,9 +57,11 @@ function SignUp() {
         const result = response.data;
   
         if (result.success) {
+          
+          console.log('falled in if block of singup')
           dispatch(AuthAction.setUserVerified({ token: result.token }));
+         // navigate("/manage_company");
           toast.success(result.message);
-          navigate("/");
         } else {
           toast.error(result.message);
         }

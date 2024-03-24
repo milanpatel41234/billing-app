@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AuthAction } from "../redux-store/Index";
 import axios from "axios";
-import { loginApi } from "../assets/api";
+import { loginApi } from "../assets/apis";
 import { toast } from "react-hot-toast";
 
 
@@ -97,7 +97,7 @@ function Login() {
                     Keep me signed in
                   </label>
                 </div>
-                <Link href="/" className="auth-link text-black">
+                <Link to="/" className="auth-link text-black">
                   Forgot password?
                 </Link>
               </div>
@@ -112,9 +112,9 @@ function Login() {
               </div>
               <div className="text-center mt-4 fw-light">
                 Don't have an account?{" "}
-                <a href="signup" className="text-primary">
+                <Link to="/signup" className="text-primary">
                   Create
-                </a>
+                </Link>
               </div>
             </form>
           </div>
