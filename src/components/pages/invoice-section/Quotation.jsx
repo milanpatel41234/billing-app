@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Checkbox } from "primereact/checkbox";
-import { quotationApi } from "../../assets/apis"; // assuming this is where your quotation API resides
+import { quotationApi } from "../../assets/apis";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { InvoiceActions } from "../../redux-store/Index";
+import { InvoiceActions } from "../../redux-store/index";
 
 const style = {
   position: "absolute",

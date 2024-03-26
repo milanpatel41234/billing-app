@@ -8,7 +8,7 @@ import { countryList } from "../assets/countryList";
 import { companyApi } from "../assets/apis";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { FinancialYearActions } from "../redux-store/Index";
+import { FinancialYearActions } from "../redux-store";
 import CreatableSelect from "react-select/creatable";
 
 const FinancialYearArray = [

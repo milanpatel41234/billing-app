@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { AuthAction } from "../redux-store/Index";
+import { AuthAction } from "../redux-store/index";
 // import style from "./Sidebar.module.css"
 
 function Sidebar({ rightSidebarActive }) {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { AuthAction } from "../redux-store/Index";
-import { FinancialYearActions } from "../redux-store/Index";
+import { AuthAction } from "../redux-store/index";
+import { FinancialYearActions } from "../redux-store/index";
 import CreatableSelect from "react-select/creatable";
 
 const FinancialYearArray = [

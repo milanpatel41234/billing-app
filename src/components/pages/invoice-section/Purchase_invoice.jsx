@@ -8,7 +8,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { InvoiceActions } from "../../redux-store/Index";
+import { InvoiceActions } from "../../redux-store/index";
 
 const style = {
   position: "absolute",

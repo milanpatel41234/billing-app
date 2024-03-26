@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { AuthAction } from "../redux-store/Index";
+import { AuthAction } from "../redux-store/index";
 import axios from "axios";
 import { toast } from 'react-hot-toast';
 import { signupApi } from '../assets/apis';

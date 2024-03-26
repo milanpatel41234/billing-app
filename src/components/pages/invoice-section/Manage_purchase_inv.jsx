@@ -21,7 +21,7 @@ import { fetchBrands } from "../Brand";
 import { fetchCategories } from "../Category";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBanks } from "../Bank";
-import { InvoiceActions } from "../../redux-store/Index";
+import { InvoiceActions } from "../../redux-store/index";
 
 const style = {
   position: "absolute",
