@@ -52,6 +52,7 @@ const Category = () => {
   }, [data]);
 
   const saveCategory = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const response = await axios.post(categoryApi, addCategory);
 
@@ -67,9 +68,11 @@ const Category = () => {
       console.log(error)
       toast.error(error.response.data.message);
     }
+    toast.dismiss(loading)
   };
 
   const editCategory = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const response = await axios.put(
         `${categoryApi}/${editState}`,
@@ -88,9 +91,11 @@ const Category = () => {
     } catch (error) {
       toast.error(error.response.message);
     }
+    toast.dismiss(loading)
   };
 
   const deleteCategory = async (id) => {
+    const loading = toast.loading('Deleting data...');
     try {
       const response = await axios.delete(`${categoryApi}/${id}`);
 
@@ -99,6 +104,7 @@ const Category = () => {
     } catch (error) {
       toast.error(error);
     }
+    toast.dismiss(loading)
   };
 
   const setEditData = (id, data) => {

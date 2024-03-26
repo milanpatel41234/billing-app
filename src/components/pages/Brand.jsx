@@ -52,6 +52,7 @@ const Brand = () => {
   }, [data]);
 
   const saveBrand = async () => {
+    const loading = toast.loading('Saving data, kindly wait...')
     try {
       const response = await axios.post(brandApi, addBrand);
 
@@ -64,8 +65,10 @@ const Brand = () => {
         description: "",
       });
     } catch (error) {}
+    toast.dismiss(loading)
   };
   const editBrand = async () => {
+    const loading = toast.loading('Saving data, kindly wait...')
     try {
       const response = await axios.put(`${brandApi}/${editState}`, addBrand);
 
@@ -81,8 +84,10 @@ const Brand = () => {
     } catch (error) {
       toast.error(error);
     }
+    toast.dismiss(loading)
   };
   const deleteBrand = async (id) => {
+    const loading = toast.loading('Deleting data, Please wait...')
     try {
       const response = await axios.delete(`${brandApi}/${id}`);
 
@@ -91,6 +96,7 @@ const Brand = () => {
     } catch (error) {
       toast.error(error);
     }
+    toast.dismiss(loading)
   };
 
   const setEditData = (id, data) => {

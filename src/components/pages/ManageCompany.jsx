@@ -41,7 +41,6 @@ function ManageCompany() {
   const [dropdown, setDropdown] = useState({});
   const [file, setFile] = useState({});
   const [check, setCheck] = useState({});
-  const [financialYear, setFinancialYear] = useState("");
   const [logo, setLogo] = useState({ show: null, send: null });
   const [sign, setSign] = useState({ show: null, send: null });
   const [commonSeal, setCommonSeal] = useState({ show: null, send: null });
@@ -52,6 +51,7 @@ function ManageCompany() {
 
   useEffect(() => {
     (async () => {
+      const loading = toast.loading('Fetching details, kindly wait...')
       try {
         const response = await axios.get(companyApi, {
           headers: {
@@ -63,9 +63,7 @@ function ManageCompany() {
         if (response.data.success) {
           setCompany({
             address: data.address,
-            cin_no: data.cin_no,
             city: data.city,
-            dl_no: data.dl_no,
             email: data.email,
             gst: data.gst,
             name: data.name,
@@ -76,12 +74,6 @@ function ManageCompany() {
             tin: data.tin,
             website: data.website,
             upi: data.upi,
-            sales_inv_prefix: data.sales_inv_prefix,
-            purchase_inv_prefix: data.purchase_inv_prefix,
-            additional_detail: data.additional_detail,
-            running_out_limit: data.running_out_limit,
-            quotation_prefix: data.quotation_prefix,
-            bussiness_type: data.bussiness_type,
             e_commerce_gst: data.e_commerce_gst,
           });
           setLogo({ show: data.logo, send: null });
@@ -97,19 +89,22 @@ function ManageCompany() {
             is_logo: data.is_logo,
             is_sign: data.is_sign,
           });
-          setFinancialYear(data.financial_year);
           setCompanyDataAvailable(true);
           return;
         }
+        
         if (response.data.success) {
           toast.success(response.data.message);
         } else {
-          // toast.error("Add company details");
+          toast.error("No Details added yet , Please add company...");
         }
       } catch (error) {
         // console.log(error);
-        // toast.error(error.response?.data?.message || "An error occurred");
+        toast.error(error.response?.data?.message || "An error occurred");
+      } finally{
+        toast.dismiss(loading)
       }
+     
     })();
   }, []);
 
@@ -135,7 +130,7 @@ function ManageCompany() {
       );
       return;
     }
-
+    const loading = toast.loading('Saving Details, kindly wait...')
     const formData = new FormData();
 
     logo.send && formData.append("logo", logo.send);
@@ -148,7 +143,6 @@ function ManageCompany() {
         ...company,
         ...dropdown,
         ...check,
-        financial_year: FYState.FYear?.label,
       })
     );
 
@@ -162,7 +156,7 @@ function ManageCompany() {
         });
         if (response.data.success) {
           toast.success(response.data.message);
-          navigate('/')
+          navigate("/");
         } else {
           toast.error(response.data.message);
         }
@@ -179,7 +173,7 @@ function ManageCompany() {
         });
         if (response.data.success) {
           toast.success(response.data.message);
-          navigate('/')
+          navigate("/");
         } else {
           toast.error(response.data.message);
         }
@@ -187,6 +181,7 @@ function ManageCompany() {
         toast.error(error?.response?.data?.message);
       }
     }
+    toast.dismiss(loading)
   };
 
   const handleChange = (props, filename) => {
@@ -458,7 +453,7 @@ function ManageCompany() {
                             <img
                               src={
                                 logo.show ||
-                                "https://app.exfi.in/media/media/logos/default.jpg"
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSZ-5lG7qKzu6-JEeX-7S7Gi1pWmc3IWbZuA&usqp=CAU"
                               }
                               style={{ width: "180px", height: "130px" }}
                               className="img-thumbnail img-fluid"
@@ -509,20 +504,8 @@ function ManageCompany() {
                             <label>Company Information</label>
                           </div>
                         </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label> TIN *</label>
-                            <input
-                              type="text"
-                              className="form-control h-100"
-                              placeholder="TIN"
-                              name="tin"
-                              value={company.tin}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
+
+                        <div className="col-6">
                           <div className="form-group">
                             <label> GSTIN *</label>
                             <input
@@ -535,22 +518,8 @@ function ManageCompany() {
                             />
                           </div>
                         </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Service Tax No.</label>
-                            <div className="input-group mb-3">
-                              <input
-                                type="text"
-                                className="form-control h-100"
-                                placeholder="Service Tax No."
-                                name="service_tax"
-                                value={company.service_tax}
-                                onChange={(e) => handleChange(e)}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-4">
+
+                        <div className="col-6">
                           <div className="form-group">
                             <label>PAN *</label>
                             <div className="input-group mb-3">
@@ -565,112 +534,7 @@ function ManageCompany() {
                             </div>
                           </div>
                         </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>D.L.No. </label>
-                            <input
-                              type="text"
-                              className="form-control h-100"
-                              placeholder="D.L.No."
-                              readOnly=""
-                              defaultValue=""
-                              name="dl_no"
-                              value={company.dl_no}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>CIN No.</label>
-                            <input
-                              className="form-control h-100"
-                              name="cin_no"
-                              placeholder="CIN No."
-                              defaultValue={""}
-                              value={company.cin_no}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Additional Detail</label>
-                            <textarea
-                              className="form-control h-100"
-                              name="additional_detail"
-                              placeholder="Additional Details"
-                              defaultValue={""}
-                              value={company.additional_detail}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Running Out Limit</label>
-                            <input
-                              type="number"
-                              className="form-control h-100"
-                              name="running_out_limit"
-                              placeholder="Running Out Limit"
-                              defaultValue={""}
-                              value={company.running_out_limit}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Purchase Invoice Prefix</label>
-                            <input
-                              className="form-control h-100"
-                              name="purchase_inv_prefix"
-                              placeholder="Purchase Invoice Prefix"
-                              defaultValue={""}
-                              value={company.purchase_inv_prefix}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Sales Invoice Prefix</label>
-                            <input
-                              className="form-control h-100"
-                              name="sales_inv_prefix"
-                              placeholder="Sales Invoice Prefix"
-                              value={company.sales_inv_prefix}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Quotation Prefix</label>
-                            <input
-                              className="form-control h-100"
-                              name="quotation_prefix"
-                              placeholder="Quotation Prefix"
-                              defaultValue={""}
-                              value={company.quotation_prefix}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>Type of Bussiness *</label>
-                            <input
-                              className="form-control h-100"
-                              name="bussiness_type"
-                              placeholder="Type of Bussiness"
-                              defaultValue={""}
-                              value={company.bussiness_type}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
+
                         <div className="col-4">
                           <div className="form-group">
                             <label>Common Seal</label>
@@ -718,66 +582,6 @@ function ManageCompany() {
 
                         <div className="col-12  margin-vertical">
                           <div className="border"></div>
-                        </div>
-
-                        <div className="col-12  margin-vertical">
-                          <div className="form-group m-0 p-0">
-                            <label>AGGREGATE TURNOVER</label>
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="select-container ">
-                            <label className="col-12 margin-bottom-dropdown mb-2">
-                              {" "}
-                              Financial Year *
-                            </label>
-                            <CreatableSelect
-                              name="category"
-                              className="w-100"
-                              value={FYState.FYear}
-                              placeholder={`Select FY year`}
-                              onChange={(val) =>
-                                dispatch(
-                                  FinancialYearActions.editFinancialYear(val)
-                                )
-                              }
-                              options={FinancialYearArray}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-4">
-                          <div className="form-group">
-                            <label>E Commerce GST</label>
-                            <input
-                              type="text"
-                              className="form-control h-100"
-                              name="e_commerce_gst"
-                              placeholder="E Commerce GST"
-                              defaultValue={""}
-                              value={company.e_commerce_gst}
-                              onChange={(e) => handleChange(e)}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-4">
-                          <div className="form-group">
-                            <input
-                              type="checkbox"
-                              className="checkbox margin-between"
-                              name="is_bank_detail"
-                              checked={check.is_bank_detail}
-                              onChange={(e) =>
-                                handleChangeCheckBox(
-                                  e.target.checked,
-                                  "is_bank_detail"
-                                )
-                              }
-                            />{" "}
-                            <label>Bank Details</label>
-                            <br />
-                            (Will be Printed on Normal Invoice)
-                          </div>
                         </div>
                       </div>
                     </form>

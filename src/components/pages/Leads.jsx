@@ -79,6 +79,7 @@ const Leads = () => {
   };
 
   const saveLead = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const lead = {
         ...leadData,
@@ -98,9 +99,11 @@ const Leads = () => {
       const errorMessage = error.response?.data?.message || "An error occurred";
        toast.error(errorMessage);
     }
+    toast.dismiss(loading)
   };
 
   const editLead = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const data = {
         ...leadData,
@@ -122,9 +125,11 @@ const Leads = () => {
       const errorMessage = error.response?.data?.message || "An error occurred";
        toast.error(errorMessage);
     }
+    toast.dismiss(loading)
   };
 
   const deleteLead = async (id) => {
+    const loading = toast.loading('Deleting data...');
     try {
       const response = await axios.delete(`${leadApi}/${id}`);
 
@@ -133,6 +138,7 @@ const Leads = () => {
     } catch (error) {
       handleApiError(error);
     }
+    toast.dismiss(loading)
   };
 
   const resetFormAndHideModal = () => {

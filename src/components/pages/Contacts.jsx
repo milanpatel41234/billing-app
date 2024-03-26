@@ -85,6 +85,7 @@ const Contacts = () => {
   };
 
   const saveContact = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const contact = {
         ...customerData,
@@ -100,9 +101,11 @@ const Contacts = () => {
     } catch (error) {
       handleApiError(error);
     }
+    toast.dismiss(loading)
   };
 
   const editContact = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const data = {
         ...customerData,
@@ -123,9 +126,11 @@ const Contacts = () => {
     } catch (error) {
       handleApiError(error);
     }
+    toast.dismiss(loading)
   };
 
   const deleteContact = async (id) => {
+    const loading = toast.loading('Deleting data...');
     try {
       const response = await axios.delete(`${contactApi}/${id}`);
 
@@ -134,6 +139,7 @@ const Contacts = () => {
     } catch (error) {
       handleApiError(error);
     }
+    toast.dismiss(loading)
   };
 
   const resetFormAndHideModal = () => {

@@ -48,6 +48,7 @@ const Bank = () => {
   }, [data]);
 
   const saveBank = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const response = await axios.post(bankApi, addBank);
 
@@ -68,9 +69,11 @@ const Bank = () => {
         error.response?.data?.message || "Failed to add bank. Please try again."
       );
     }
+    toast.dismiss(loading)
   };
 
   const editBank = async () => {
+    const loading = toast.loading('Saving data...')
     try {
       const response = await axios.put(`${bankApi}/${editState}`, addBank);
 
@@ -84,11 +87,15 @@ const Bank = () => {
         toast.error("Failed to edit bank. Please try again.");
       }
     } catch (error) {
-      // Handle errors
+      toast.error(
+        error.response?.data?.message || "Failed to edit bank. Please try again."
+      );
     }
+    toast.dismiss(loading)
   };
 
   const deleteBank = async (id) => {
+    const loading = toast.loading('Deleting data...');
     try {
       const response = await axios.delete(`${bankApi}/${id}`);
 
@@ -101,6 +108,7 @@ const Bank = () => {
     } catch (error) {
       // Handle errors
     }
+    toast.dismiss(loading)
   };
 
   const setEditData = (data) => {
